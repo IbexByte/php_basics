@@ -4,8 +4,8 @@ require './database/DBconnection.php';
 require './database/QueryBuilder.php';
 
  QueryBuilder::make(DBconnection::make());
- QueryBuilder::insert('tasks', [
-    'description' => 'third task',
+ QueryBuilder::update('tasks',3, [
+    'description' => 'updated',
     'completed' => 0,
  ]);
 $tasks =  QueryBuilder::get('tasks');

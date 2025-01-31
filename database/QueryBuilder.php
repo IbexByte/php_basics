@@ -27,4 +27,10 @@ class QueryBuilder
         $query->execute(array_values($data));
     }
 
+    public static function update($table, $id , $data){
+        $keysStr = implode('= ? ,' , array_keys($data)) . '= ?' ;
+        $query = "UPDATE {$table} SET {$keysStr} WHERE id= {$id}";
+        $statement = self::$pdo->prepare($query);
+        $statement->execute(array_values($data));
+    }
 }
