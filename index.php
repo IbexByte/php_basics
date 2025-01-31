@@ -1,5 +1,11 @@
 <?php  
 
+class Task {
+   public $id ;
+   public $description ;
+   public $completed ;
+}
+
 $host= "localhost";
 $dbName = "php_basics";
 $password = "";
@@ -11,3 +17,15 @@ try {
 } catch (\Throwable $th) {
    die($th->getMessage());
 }
+
+$query = $pdo->prepare('SELECT * from tasks');
+
+$query->execute() ;
+$tasks = $query->fetchAll(PDO::FETCH_CLASS , 'Task');
+
+foreach ($tasks as  $task) {
+ echo  $task->description . '</br>' ;
+}
+echo '<pre>';
+var_dump($tasks);
+echo '</pre>';
