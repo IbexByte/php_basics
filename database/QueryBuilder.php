@@ -33,4 +33,10 @@ class QueryBuilder
         $statement = self::$pdo->prepare($query);
         $statement->execute(array_values($data));
     }
+
+    public static function delete($table ,$target , $column = 'id' , $operater = '=') : void {
+        $query = "DELETE FROM {$table} WHERE {$column} {$operater} {$target}  ";
+        $statement = self::$pdo->prepare($query);
+        $statement->execute();
+    }
 }
