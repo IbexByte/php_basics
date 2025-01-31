@@ -18,4 +18,13 @@ class QueryBuilder
         return    $query->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public static function insert($table, $data){
+        $data_keys = array_keys($data);
+        $fields = implode(',' , $data_keys);
+        $values_sympol = str_repeat('?,', count($data_keys) -1) . '?';
+        $query_text = "INSERT INTO {$table} ({$fields}) VALUES ($values_sympol) ";
+        $query = self::$pdo->prepare($query_text);
+        $query->execute(array_values($data));
+    }
+
 }
