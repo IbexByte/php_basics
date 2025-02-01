@@ -3,6 +3,7 @@
 require './app/database/DBconnection.php';
 require './app/database/QueryBuilder.php';
 require './app/Core/Router.php';
+require './app/Core/Request.php';
 
  QueryBuilder::make(DBconnection::make());
  QueryBuilder::delete('tasks',3);
