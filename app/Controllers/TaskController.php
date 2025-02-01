@@ -19,4 +19,19 @@ class TaskController
 
         header("Location: http://localhost/examProjects/php_basics/");
     }
+
+    public function update()
+    {
+        $id = $_POST['id'];
+        $completed = $_POST['completed'];
+        QueryBuilder::update('tasks', $id,['completed' => $completed] );
+        header("Location: http://localhost/examProjects/php_basics/");
+    }
+
+    public function delete()
+    {
+        $id = $_POST['id'];
+        QueryBuilder::delete('tasks', $id);
+        header("Location: http://localhost/examProjects/php_basics/");
+    }
 }
