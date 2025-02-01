@@ -5,9 +5,9 @@ require './_init.php';
  
 
 Router::make()
-->get('',"./app/Controllers/index.php" )
+->get('',[TaskController::class , 'index'] )
 ->get('about',"./app/Controllers/about.php" )
-->post('create/task',"./app/Controllers/task.create.php" )
+->post('create/task',[TaskController::class , 'create']  )
 ->resolve(Request::uri() , Request::method());
  
 

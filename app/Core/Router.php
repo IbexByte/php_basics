@@ -25,7 +25,12 @@ class Router {
 
     public function resolve($uri , $method){
         if (array_key_exists($uri , $this->{$method})) {
-            require $this->{$method}[$uri] ;
+            $action =  $this->{$method}[$uri] ;
+            $function = $action[1];
+            $class = new $action[0] ;
+            $action = new $class ;
+            $action->{$function}();
+
         } else {
             throw new ErrorException('Not Valid page !');
         }
