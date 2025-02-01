@@ -8,13 +8,7 @@ use Monolog\Handler\StreamHandler;
 
 
 require './vendor/autoload.php';
-require './app/App.php';
-require './app/database/DBconnection.php';
-require './app/database/QueryBuilder.php';
-require './app/Core/Router.php';
-require './app/Core/Request.php';
-require './app/Controllers/TaskController.php';
-require './app/helpers.php';
+
 
 // create a log channel
 $log = new Logger('name');

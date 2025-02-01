@@ -1,14 +1,16 @@
 <?php
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 return [
     'app' => [
-        'home_url' => 'http://localhost/examProjects/php_basics/',
+        'home_url' => $_ENV['APP_HOME_URL'],
     ],
     'database' => [
-          'host' => 'localhost',
-          'name' => 'php_basics',
-          'user' => 'root',
-          'password' => ''
+          'host' =>  $_ENV['DB_HOST'],
+          'name' =>  $_ENV['DB_NAME'],
+          'user' =>  $_ENV['DB_USER'],
+          'password' =>  $_ENV['DB_PASSWORD']
     ]
 ];
