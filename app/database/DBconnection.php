@@ -1,4 +1,6 @@
 <?php 
+
+namespace App\Database;
 class Task {
     public $id ;
     public $description ;
@@ -14,15 +16,15 @@ class Task {
      public static function make($config) {
          if (!self::$pdo) {
              try {
-                 self::$pdo = new PDO(
+                 self::$pdo = new \PDO(
                      "mysql:host=" . $config['host'] . ";dbname=" . $config['name'] . ";charset=utf8mb4",
                      $config['user'],
                      $config['password']
                  );
  
                  // Set error mode to Exception
-                 self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-             } catch (PDOException $e) {
+                 self::$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+             } catch (\PDOException $e) {
                  die("Database Connection Failed: " . $e->getMessage());
              }
          }

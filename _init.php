@@ -1,4 +1,8 @@
-<?php  
+<?php 
+
+use App\Database\DBconnection ;
+use App\Database\QueryBuilder ;
+use App\App ;
 
 require './app/App.php';
 require './app/database/DBconnection.php';

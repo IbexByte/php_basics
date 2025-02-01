@@ -1,11 +1,11 @@
 <?php
 
-
+namespace App\Database;
 class QueryBuilder
 {
     private static $pdo;
 
-    public static function make(PDO $pdo)
+    public static function make(\PDO $pdo)
     {
         self::$pdo = $pdo;
     }
@@ -22,7 +22,7 @@ class QueryBuilder
         $query = self::$pdo->prepare($query_sql);
 
         $query->execute();
-        return $query->fetchAll(PDO::FETCH_OBJ);
+        return $query->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public static function insert($table, $data)
