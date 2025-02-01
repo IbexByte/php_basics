@@ -7,8 +7,9 @@ class Request
     public static function uri()
     {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $uri = $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . $uri  ;
         $uri = trim($uri, '/');
-        $uri = str_replace('examProjects/php_basics', '', $uri);
+        $uri = str_replace(home(), '', $uri);
        return trim($uri, '/');
     }
 

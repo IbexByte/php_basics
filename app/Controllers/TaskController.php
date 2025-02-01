@@ -17,8 +17,8 @@ class TaskController
 
         }
         
-
-        require "./resources/index.view.php";
+        view('index' , ['tasks' => $tasks]);
+       
     }
 
     public function create()
@@ -27,7 +27,7 @@ class TaskController
 
         QueryBuilder::insert('tasks', ['description' => $description]);
 
-        header("Location: http://localhost/examProjects/php_basics/");
+       back();
     }
 
     public function update()
@@ -35,13 +35,13 @@ class TaskController
         $id =  Request::get('id');
         $completed = Request::get('completed');
         QueryBuilder::update('tasks', $id,['completed' => $completed] );
-        header("Location: http://localhost/examProjects/php_basics/");
+        back();
     }
 
     public function delete()
     {
         $id =  Request::get('id');
         QueryBuilder::delete('tasks', $id);
-        header("Location: http://localhost/examProjects/php_basics/");
+       back();
     }
 }

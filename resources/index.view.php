@@ -41,7 +41,7 @@
         <!-- تبويبات التصفية -->
         <ul class="nav nav-tabs mb-3" id="taskTabs">
             <li class="nav-item">
-                <a class="nav-link" href="http://localhost/examProjects/php_basics/" data-filter="all">All Tasks</a>
+                <a class="nav-link" href="<?= home() ?>" data-filter="all">All Tasks</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="?completed=1" data-filter="completed">Completed</a>

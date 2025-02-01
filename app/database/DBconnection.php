@@ -9,18 +9,15 @@ class Task {
  
  class DBconnection {
      private static $pdo = null;
-     private static $host = "localhost"; 
-     private static $dbName = "php_basics"; 
-     private static $password = ""; 
-     private static $userName = "root"; 
+
  
-     public static function make() {
+     public static function make($config) {
          if (!self::$pdo) {
              try {
                  self::$pdo = new PDO(
-                     "mysql:host=" . self::$host . ";dbname=" . self::$dbName . ";charset=utf8mb4",
-                     self::$userName,
-                     self::$password
+                     "mysql:host=" . $config['host'] . ";dbname=" . $config['name'] . ";charset=utf8mb4",
+                     $config['user'],
+                     $config['password']
                  );
  
                  // Set error mode to Exception
