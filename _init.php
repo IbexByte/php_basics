@@ -1,7 +1,8 @@
 <?php  
 
-require './database/DBconnection.php';
-require './database/QueryBuilder.php';
+require './app/database/DBconnection.php';
+require './app/database/QueryBuilder.php';
+require './app/Core/Router.php';
 
  QueryBuilder::make(DBconnection::make());
  QueryBuilder::delete('tasks',3);
