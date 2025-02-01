@@ -6,14 +6,24 @@ class TaskController
 
     public function index()
     {
-        $tasks = QueryBuilder::get('tasks');
+        
+        $completed = Request::get('completed');
+       
+        if ($completed !=  null) {
+            $tasks = QueryBuilder::get('tasks', ['completed' , '=' , $completed]);
+
+        } else {
+            $tasks = QueryBuilder::get('tasks');
+
+        }
+        
 
         require "./resources/index.view.php";
     }
 
     public function create()
     {
-        $description = $_POST['description'];
+        $description =  Request::get('description');
 
         QueryBuilder::insert('tasks', ['description' => $description]);
 
@@ -22,15 +32,15 @@ class TaskController
 
     public function update()
     {
-        $id = $_POST['id'];
-        $completed = $_POST['completed'];
+        $id =  Request::get('id');
+        $completed = Request::get('completed');
         QueryBuilder::update('tasks', $id,['completed' => $completed] );
         header("Location: http://localhost/examProjects/php_basics/");
     }
 
     public function delete()
     {
-        $id = $_POST['id'];
+        $id =  Request::get('id');
         QueryBuilder::delete('tasks', $id);
         header("Location: http://localhost/examProjects/php_basics/");
     }

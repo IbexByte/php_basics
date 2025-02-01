@@ -6,7 +6,7 @@
     <title>Task Manager</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
     <style>
         .task.completed {
             text-decoration: line-through;
@@ -18,23 +18,18 @@
             display: flex;
             gap: 5px;
         }
-        .task-actions button {
-            border: none;
-            transition: all 0.3s;
-        }
-        .task-actions button:hover {
-            transform: scale(1.1);
-        }
         .container {
             max-width: 600px;
+        }
+        .nav-tabs .nav-link.active {
+            font-weight: bold;
+            color: #007bff;
         }
     </style>
 </head>
 <body class="bg-light">
     <div class="container mt-5">
         <h1 class="text-center mb-4 text-primary"><i class="fa-solid fa-list-check"></i> Task Manager</h1>
-
-        <!-- Form to input description -->
         <form action="create/task" method="post" class="mb-4 shadow-sm p-3 bg-white rounded">
             <div class="mb-3">
                 <label for="description" class="form-label">New Task:</label>
@@ -43,13 +38,25 @@
             <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-plus"></i> Add Task</button>
         </form>
 
-        <!-- List of tasks -->
-        <ul class="list-group shadow-sm">
+        <!-- تبويبات التصفية -->
+        <ul class="nav nav-tabs mb-3" id="taskTabs">
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost/examProjects/php_basics/" data-filter="all">All Tasks</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="?completed=1" data-filter="completed">Completed</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="?completed=0" data-filter="incomplete">Incomplete</a>
+            </li>
+        </ul>
+
+        <!-- قائمة المهام -->
+        <ul class="list-group shadow-sm" id="taskList">
             <?php foreach ($tasks as $task) : ?>
-                <li class="list-group-item d-flex align-items-center task <?= $task->completed ? 'completed' : '' ?>">
+                <li class="list-group-item d-flex align-items-center task <?= $task->completed ? 'completed' : '' ?>" data-status="<?= $task->completed ? 'completed' : 'incomplete' ?>">
                     <span class="flex-grow-1"><?= htmlspecialchars($task->description) ?></span>
                     <div class="task-actions">
-                        <!-- Toggle Completion -->
                         <form action="update/task" method="post">
                             <input type="hidden" name="id" value="<?= $task->id ?>">
                             <input type="hidden" name="completed" value="<?= $task->completed ? '0' : '1' ?>">
@@ -57,7 +64,6 @@
                                 <i class="fa-solid <?= $task->completed ? 'fa-undo' : 'fa-check' ?>"></i>
                             </button>
                         </form>
-                        <!-- Delete Task -->
                         <form action="delete/task" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
                             <input type="hidden" name="id" value="<?= $task->id ?>">
                             <button type="submit" class="btn btn-sm btn-danger">
@@ -72,5 +78,24 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript لتحديد التبويب النشط بناءً على ?completed -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const completedParam = urlParams.get("completed");
+
+            // تحديد التبويب النشط
+            document.querySelectorAll(".nav-tabs .nav-link").forEach(tab => {
+                tab.classList.remove("active"); 
+
+                if ((completedParam === "1" && tab.getAttribute("href") === "?completed=1") ||
+                    (completedParam === "0" && tab.getAttribute("href") === "?completed=0") ||
+                    (!completedParam && tab.getAttribute("href") === "http://localhost/examProjects/php_basics/")) {
+                    tab.classList.add("active");  
+                }
+            });
+        });
+    </script>
 </body>
 </html>
